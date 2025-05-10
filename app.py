@@ -1,42 +1,41 @@
-import os
+# import os
 
-import psycopg2
+# import psycopg2
+# import streamlit as st
+# from st_pages import add_page_title, get_nav_from_toml
+
+# # Fetch env variables
+# host = os.getenv("DB_HOST")
+# port = os.getenv("DB_PORT")
+# dbname = os.getenv("DB_NAME")
+# user = os.getenv("DB_USER")
+# password = os.getenv("DB_PASS")
+
+
+# def create_postgres_connection():
+#     """Create a connection to PostgreSQL database."""
+#     db_name = os.getenv("DB_NAME")
+#     db_user = os.getenv("DB_USER")
+#     db_password = os.getenv("DB_PASSWORD")
+#     db_host = os.getenv("DB_HOST")
+#     db_port = os.getenv("DB_PORT", "5432")
+
+#     print(f"Connecting to PostgreSQL: {db_name}@{db_host}:{db_port} as {db_user}")
+#     return psycopg2.connect(
+#         dbname=db_name, user=db_user, password=db_password, host=db_host, port=db_port
+#     )
+
 import streamlit as st
+from st_pages import add_page_title, get_nav_from_toml
 
-# Fetch env variables
-host = os.getenv("DB_HOST")
-port = os.getenv("DB_PORT")
-dbname = os.getenv("DB_NAME")
-user = os.getenv("DB_USER")
-password = os.getenv("DB_PASS")
+st.set_page_config(layout="wide")
 
-conn = psycopg2.connect(
-    host=host, port=port, dbname=dbname, user=user, password=password
-)
+nav = get_nav_from_toml(".streamlit/pages.toml")
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="👋",
-)
+st.logo("assets/reddit-logo.png", size="large")
 
-st.write("# Welcome to Streamlit! 👋")
+pg = st.navigation(nav)
 
-st.sidebar.success("Select a demo above.")
+add_page_title(pg)
 
-st.markdown(
-    """
-    Streamlit is an open-source app framework built specifically for
-    Machine Learning and Data Science projects.
-    **👈 Select a demo from the sidebar** to see some examples
-    of what Streamlit can do!
-    ### Want to learn more?
-    - Check out [streamlit.io](https://streamlit.io)
-    - Jump into our [documentation](https://docs.streamlit.io)
-    - Ask a question in our [community
-        forums](https://discuss.streamlit.io)
-    ### See more complex demos
-    - Use a neural net to [analyze the Udacity Self-driving Car Image
-        Dataset](https://github.com/streamlit/demo-self-driving)
-    - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-"""
-)
+pg.run()

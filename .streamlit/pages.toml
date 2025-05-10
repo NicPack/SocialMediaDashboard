@@ -1,0 +1,9 @@
+[[pages]]
+path = "pages/homepage.py"
+name = "Wall"
+icon = "👥"
+
+[[pages]]
+path = "pages/network.py"
+name = "Users Network"
+icon = "🕸️"
